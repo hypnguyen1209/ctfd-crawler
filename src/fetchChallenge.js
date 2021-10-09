@@ -33,14 +33,14 @@ module.exports = async (cookies, challenge) => {
     let { id, name, value, description, category, files } = resp.data.data
     await createFileDesc(__dirname + `/../${folderChallenge}/${name}`, { id, name, value, description, category })
     if (files.length > 0) {
-        console.log('[+] Downloading file....')
+        await console.log('[+] Downloading file....')
         await Promise.all([
             ...files.map(async file => {
                 await downloadFile(cookies, file, name)
-                await console.log('[+] Downloaded!')
                 return true
             })
         ])
+        await console.log('[+] Downloaded!')
     }
     await true
 }
